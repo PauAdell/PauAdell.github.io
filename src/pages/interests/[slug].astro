@@ -1,0 +1,29 @@
+---
+import type { MarkdownInstance } from "astro";
+import Base from "../../layouts/Base.astro";
+
+interface Frontmatter {
+  title: string;
+  summary: string;
+}
+
+export function getStaticPaths() {
+  const files = import.meta.glob<MarkdownInstance<Frontmatter>>("../../content/interests/*.md", { eager: true });
+  return Object.entries(files).map(([path, entry]) => ({
+    params: { slug: path.split("/").pop()!.replace(/\.md$/, "") },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, frontmatter } = entry;
+---
+
+<Base title={frontmatter.title} description={frontmatter.summary}>
+  <p class="back"><a href="/interests/">← Other interests</a></p>
+  <h1>{frontmatter.title}</h1>
+  <p class="lead">{frontmatter.summary}</p>
+  <div class="prose">
+    <Content />
+  </div>
+</Base>

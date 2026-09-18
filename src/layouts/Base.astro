@@ -1,0 +1,36 @@
+---
+import "../styles/global.css";
+import { site } from "../config";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.tagline } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.name;
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <div class="frame">
+      <nav>
+        <a href="/" aria-current={path === "/" ? "page" : undefined}>{site.name}</a>
+        <a href="/interests/" aria-current={path.startsWith("/interests") ? "page" : undefined}>Other interests</a>
+      </nav>
+      <slot />
+    </div>
+    <footer>
+      Want to work together or chat? Reach me on <a href={site.linkedin}>LinkedIn</a> or <a href={`https://github.com/${site.githubUser}`}>GitHub</a>.
+    </footer>
+  </body>
+</html>

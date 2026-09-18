@@ -1,0 +1,35 @@
+---
+import type { MarkdownInstance } from "astro";
+import Base from "../../layouts/Base.astro";
+import { site } from "../../config";
+
+interface Frontmatter {
+  title: string;
+  summary: string;
+}
+
+// Each file in src/content/projects/ becomes a page at /projects/<repo>/.
+// The file name must match the GitHub repository name (used for the source link).
+export function getStaticPaths() {
+  const files = import.meta.glob<MarkdownInstance<Frontmatter>>("../../content/projects/*.md", { eager: true });
+  return Object.entries(files).map(([path, entry]) => ({
+    params: { repo: path.split("/").pop()!.replace(/\.md$/, "") },
+    props: { entry },
+  }));
+}
+
+const { repo } = Astro.params;
+const { Content, frontmatter } = Astro.props.entry;
+---
+
+<Base title={frontmatter.title} description={frontmatter.summary}>
+  <p class="back"><a href="/">← All projects</a></p>
+  <h1>{frontmatter.title}</h1>
+  <p class="lead">{frontmatter.summary}</p>
+  <p class="source">
+    <a href={`https://github.com/${site.githubUser}/${repo}`}>View source on GitHub →</a>
+  </p>
+  <div class="prose">
+    <Content />
+  </div>
+</Base>

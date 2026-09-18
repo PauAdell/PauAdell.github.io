@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+
+interface Frontmatter {
+  title: string;
+  summary: string;
+  order?: number;
+}
+
+const files = import.meta.glob<{ frontmatter: Frontmatter; url: string }>("../../content/interests/*.md", {
+  eager: true,
+});
+
+const interests = Object.entries(files)
+  .map(([path, mod]) => ({ slug: path.split("/").pop()!.replace(/\.md$/, ""), ...mod.frontmatter }))
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+---
+
+<Base title="Other interests">
+  <h1>Other interests</h1>
+  <p class="lead">Things I build when I'm not writing software for a living.</p>
+  <ul class="list">
+    {
+      interests.map((i) => (
+        <li>
+          <a href={`/interests/${i.slug}/`}>{i.title}</a>
+          <p>{i.summary}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
