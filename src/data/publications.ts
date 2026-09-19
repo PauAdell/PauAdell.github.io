@@ -26,7 +26,7 @@ export const publications: Publication[] = [
     title: "Improving the Programmability of Vulkan Safety Critical GPU Systems",
     meta: "Bachelor's thesis · UPC · May 2024",
     summary:
-      "A new Vulkan SC backend for the Brook Auto compiler, so developers can write GPU code in Brook and run it on Vulkan SC without having to learn Vulkan itself.",
+      "Reworked the Brook Auto compiler, replacing its translation from Brook to the Cg Toolkit with a translation to the more up-to-date OpenGL Shading Language, as the groundwork for future OpenGL, OpenGL SC, Vulkan and Vulkan SC backends.",
     url: "https://hdl.handle.net/2117/414403",
   },
 ];

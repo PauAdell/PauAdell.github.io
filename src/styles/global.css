@@ -100,6 +100,10 @@ nav a[aria-current="page"] {
   max-width: 34rem;
 }
 
+.about p {
+  max-width: 34rem;
+}
+
 /* Project / interest list on index pages. */
 .list {
   list-style: none;

@@ -19,8 +19,9 @@ const projects = Object.entries(files)
 <Base>
   <h1>{site.tagline}</h1>
   <p class="lead">{site.intro}</p>
+  <div class="about">{site.about.map((text) => <p>{text}</p>)}</div>
 
-  <h2>Projects</h2>
+  <h2>Software projects</h2>
   <ul class="list">
     {
       projects.map((p) => (
