@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { site } from "../config";
+import { publications } from "../data/publications";
 
 interface Frontmatter {
   title: string;
@@ -25,6 +26,19 @@ const projects = Object.entries(files)
       projects.map((p) => (
         <li>
           <a href={`/projects/${p.repo}/`}>{p.title}</a>
+          <p>{p.summary}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Theses &amp; publications</h2>
+  <ul class="list">
+    {
+      publications.map((p) => (
+        <li>
+          {p.url ? <a href={p.url}>{p.title}</a> : <span class="title">{p.title}</span>}
+          <p class="meta">{p.meta}</p>
           <p>{p.summary}</p>
         </li>
       ))

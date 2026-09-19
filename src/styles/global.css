@@ -110,7 +110,8 @@ nav a[aria-current="page"] {
   padding: 1rem 0;
   border-top: 1px solid var(--line);
 }
-.list a {
+.list a,
+.list .title {
   font-family: var(--serif);
   font-size: 1.4rem;
   text-decoration: none;
@@ -118,6 +119,9 @@ nav a[aria-current="page"] {
 .list p {
   margin: 0.25rem 0 0;
   color: var(--muted);
+}
+.list .meta {
+  font-size: 0.85rem;
 }
 
 .back,
