@@ -5,6 +5,8 @@ import Base from "../../layouts/Base.astro";
 interface Frontmatter {
   title: string;
   summary: string;
+  detailsHref?: string;
+  detailsLabel?: string;
 }
 
 export function getStaticPaths() {
@@ -26,4 +28,13 @@ const { Content, frontmatter } = entry;
   <div class="prose">
     <Content />
   </div>
+  {
+    frontmatter.detailsHref && (
+      <p class="more">
+        <a class="button" href={frontmatter.detailsHref}>
+          {frontmatter.detailsLabel ?? "See the details"} →
+        </a>
+      </p>
+    )
+  }
 </Base>

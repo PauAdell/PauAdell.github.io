@@ -2,6 +2,8 @@
 title: 80 kWh home battery
 summary: Building a home energy storage system from scratch.
 order: 1
+detailsHref: /interests/home-battery/specifics/
+detailsLabel: See the build in detail
 ---
 
 Write about the battery project here: motivation, cell choice, BMS, wiring, and what you learned.
