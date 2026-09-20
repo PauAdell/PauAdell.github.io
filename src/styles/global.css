@@ -197,3 +197,69 @@ footer {
   border-left: 2px solid var(--line);
   color: var(--muted);
 }
+
+/* Hero image and photo gallery on interest pages. */
+.hero {
+  margin: 1.5rem 0 2rem;
+}
+.hero a {
+  display: block;
+}
+.hero a,
+.gallery a {
+  cursor: zoom-in;
+}
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.hero figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.photos {
+  margin-top: 2.5rem;
+}
+
+/* Rows of thumbnails that keep their aspect ratio and fill the row width. */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.gallery::after {
+  content: "";
+  flex-grow: 1000000;
+}
+.gallery a {
+  display: block;
+  min-width: 0;
+}
+.gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+  transition: opacity 0.15s;
+}
+.gallery a:hover img {
+  opacity: 0.85;
+}
+
+.pswp__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: #ddd;
+  font-size: 0.95rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}

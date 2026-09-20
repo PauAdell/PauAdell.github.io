@@ -1,0 +1,49 @@
+---
+// Opens every `[data-lightbox] a` on the page (hero first, then the gallery) as one full-screen
+// set, so the arrows and swipes move through all of them and wrap around at the ends.
+---
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "photoswipe/style.css";
+
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-lightbox] a[data-pswp-width]"));
+
+  const lightbox = new PhotoSwipeLightbox({
+    dataSource: links.map((a) => ({
+      src: a.href,
+      width: Number(a.dataset.pswpWidth),
+      height: Number(a.dataset.pswpHeight),
+      msrc: a.querySelector("img")?.currentSrc,
+      element: a.querySelector("img") ?? undefined,
+      caption: a.dataset.caption,
+    })),
+    pswpModule: () => import("photoswipe"),
+    loop: true,
+    bgOpacity: 0.92,
+    imageClickAction: "zoom-or-close",
+  });
+
+  lightbox.on("uiRegister", () => {
+    lightbox.pswp!.ui!.registerElement({
+      name: "caption",
+      order: 9,
+      isButton: false,
+      appendTo: "root",
+      onInit: (captionEl, pswp) => {
+        pswp.on("change", () => {
+          captionEl.textContent = pswp.currSlide?.data.caption ?? "";
+        });
+      },
+    });
+  });
+
+  lightbox.init();
+
+  links.forEach((a, i) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      lightbox.loadAndOpen(i);
+    });
+  });
+</script>

@@ -1,12 +1,18 @@
 ---
 import type { MarkdownInstance } from "astro";
+import { Image, getImage } from "astro:assets";
 import Base from "../../layouts/Base.astro";
+import Gallery from "../../components/Gallery.astro";
+import Lightbox from "../../components/Lightbox.astro";
+import { galleries } from "../../data/galleries";
+import { resolveImage } from "../../data/images";
 
 interface Frontmatter {
   title: string;
   summary: string;
   detailsHref?: string;
   detailsLabel?: string;
+  gallery?: string;
 }
 
 export function getStaticPaths() {
@@ -19,15 +25,47 @@ export function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, frontmatter } = entry;
+const gallery = frontmatter.gallery ? galleries[frontmatter.gallery] : undefined;
+const heroSrc = gallery ? resolveImage(gallery.folder, gallery.hero.file) : undefined;
+const heroFull = heroSrc ? await getImage({ src: heroSrc, width: 2400, format: "webp" }) : undefined;
 ---
 
 <Base title={frontmatter.title} description={frontmatter.summary}>
   <p class="back"><a href="/interests/">← Other interests</a></p>
   <h1>{frontmatter.title}</h1>
   <p class="lead">{frontmatter.summary}</p>
+  {
+    gallery && (
+      <figure class="hero" data-lightbox>
+        <a
+          href={heroFull!.src}
+          data-pswp-width={heroFull!.attributes.width}
+          data-pswp-height={heroFull!.attributes.height}
+          data-caption={gallery.hero.caption}
+        >
+          <Image
+            src={heroSrc!}
+            alt={gallery.hero.caption}
+            widths={[800, 1200, 1600]}
+            sizes="(max-width: 46rem) 100vw, 46rem"
+            loading="eager"
+          />
+        </a>
+        <figcaption>{gallery.hero.caption}</figcaption>
+      </figure>
+    )
+  }
   <div class="prose">
     <Content />
   </div>
+  {
+    gallery && (
+      <section class="photos">
+        <h2>Image Gallery</h2>
+        <Gallery folder={gallery.folder} items={gallery.items} />
+      </section>
+    )
+  }
   {
     frontmatter.detailsHref && (
       <p class="more">
@@ -37,4 +75,5 @@ const { Content, frontmatter } = entry;
       </p>
     )
   }
+  {gallery && <Lightbox />}
 </Base>

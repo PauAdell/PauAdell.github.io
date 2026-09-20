@@ -1,0 +1,40 @@
+---
+import { getImage } from "astro:assets";
+import type { GalleryItem } from "../data/galleries";
+import { resolveImage } from "../data/images";
+
+interface Props {
+  folder: string;
+  items: GalleryItem[];
+}
+
+const { folder, items } = Astro.props;
+
+const photos = await Promise.all(
+  items.map(async (item) => {
+    const src = resolveImage(folder, item.file);
+    const thumb = await getImage({ src, width: 700, format: "webp" });
+    const full = await getImage({ src, width: 2400, format: "webp" });
+    return { caption: item.caption, thumb, full };
+  }),
+);
+---
+
+<div class="gallery" data-lightbox>
+  {
+    photos.map(({ caption, thumb, full }) => {
+      const ratio = thumb.attributes.width / thumb.attributes.height;
+      return (
+        <a
+          href={full.src}
+          data-pswp-width={full.attributes.width}
+          data-pswp-height={full.attributes.height}
+          data-caption={caption}
+          style={`flex-grow: ${ratio * 100}; flex-basis: ${ratio * 11}rem;`}
+        >
+          <img src={thumb.src} width={thumb.attributes.width} height={thumb.attributes.height} alt={caption} loading="lazy" decoding="async" />
+        </a>
+      );
+    })
+  }
+</div>
