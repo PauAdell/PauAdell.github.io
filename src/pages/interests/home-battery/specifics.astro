@@ -1,12 +1,297 @@
 ---
 import Base from "../../../layouts/Base.astro";
+import Gallery from "../../../components/Gallery.astro";
+import Lightbox from "../../../components/Lightbox.astro";
+
+const folder = "battery/specific";
 ---
 
 <Base title="70 kWh home battery: specifics" description="The details of the home battery build.">
   <p class="back"><a href="/interests/home-battery/">← Home battery overview</a></p>
   <h1>70 kWh home battery: specifics</h1>
   <p class="lead">A closer look at the individual parts of the build.</p>
+
   <div class="prose">
-    <p>Sections and photos go here.</p>
+    <h2 id="cell-modules">Cell modules</h2>
+    <p>
+      The battery pack is built around Samsung INR21700-50E cells arranged into distinct parallel groups, organized by rows of custom 3D-printed cell holders.
+      Each individual holder is designed to accommodate seven independent modules cleanly, with each module consisting of four cells grouped in parallel (totaling 28 cells per holder).
+      Within each four-cell module, the cells are interconnected using spot-welded nickel strips.
+      Flexible leads are soldered to each side of the module, terminating in ring terminals that fasten directly to the busbars for straightforward assembly, inspection, and replacement.
+      For localized safety, an inline fuse is integrated onto the positive lead of every individual four-cell module, ensuring any internal fault or short circuit is immediately isolated without affecting adjacent modules or the rest of the pack. 
+    </p>
   </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "samsung50E_cell.jpg", caption: "A single Samsung INR21700-50E cell, the base unit of the pack." },
+        { file: "module_holder.jpg", caption: "The 3D-printed holder that groups four cells into one parallel module." },
+        { file: "module_positive_side.jpg", caption: "The positive terminals of a module, ready for the busbar." },
+        { file: "module_negative_side.jpg", caption: "The negative terminals on the opposite side of the same module." },
+      ]}
+    />
+  </section>
+  <div class="prose">
+    <p>
+      To assemble this many modules efficiently, I broke the build down into simple, highly repetitive batch operations.
+    </p>
+    <p>
+      For the wiring, once I determined the exact lead lengths, I cut a master reference wire and used it as a guide to cut the rest without repeated measuring. After cutting and stripping every lead, I pre-tinned all the wire tips in one continuous pass until the full set was ready for assembly.
+      Once the cell groups had their nickel strips spot-welded, attaching the leads was practically frictionless: grab a module, grab a pre-tinned lead, reflow the solder joint, and move directly to the next. Structuring the assembly into discrete, standardized tasks turned a tedious build into a fast, highly repeatable assembly line.
+    </p>
+    <p>
+      I learned an incredible amount throughout this entire build, and if I had to do it all over again, there are definitely a few things I’d change.
+      That’s just the nature of prototyping: going through the process once shows you exactly where the bottlenecks are and how to save hours of effort next time.
+      Top of that list? If you can, order your copper busbars pre-drilled. Trust me on that one 🤣.
+    </p>
+  </div>
+
+  <div class="prose">
+    <p>
+      That batching is what the two photos below show: this is what a finished lead looked like, cut to length,
+      stripped, tinned, and fitted with its fuse and terminal. I roughly prepared 300 this way before
+      soldering a single one to a module.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "stack_cables.jpg", caption: "A stack of finished leads, cut, stripped, and tinned ahead of assembly." },
+        { file: "cables+fuse.jpg", caption: "One of the finished leads with its inline fuse and terminal fitted." },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <h2 id="structure">3D-printed supports</h2>
+    <p>
+      As I mentioned in the overview, my priority from the start was accessibility: I wanted to be able to add,
+      remove, or swap modules and generally "debug" the pack at any point, not end up with one of those sealed packs
+      you see in motorbikes or e-bikes that basically nobody ever opens again. That meant leaving the cells exposed
+      rather than potting or fully enclosing them, an approach I didn't come up with myself: I'd seen a few
+      functional prototypes online doing something similar and decided to go that route. This is really a mix of
+      ideas I picked up and learned from other people's builds, so the credit isn't mine to take, just my own take
+      on it.
+    </p>
+    <p>
+      The supports are designed to stack in both directions: horizontally to add columns, or vertically to add rows.
+      For a 15S pack that works out to a 15×11 grid of 3D-printed supports, which took, as you'd expect, a very long
+      time to print ((15*11*6h) / 24h = 41.25 days considering no failures).
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "3Dprint_support.jpg", caption: "One of the 3D-printed structural supports used throughout the frame." },
+        { file: "bottom_3Dprint_support.jpg", caption: "The support piece at the base of a column, bearing the weight of the modules above." },
+        { file: "module_in_support.jpg", caption: "A finished module seated in its holder inside the frame." },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <h2 id="busbars-holders">Busbars & holders</h2>
+    <p>
+      Copper busbars connect the modules of each series group and carry their combined current out to the rest of the
+      pack. Each busbar sits in its own 3D-printed holder, which keeps it aligned with the cell terminals and isolated
+      from its neighbors.
+    </p>
+    <p>
+      The holders don't sit flush against the wall: a second 3D-printed separator holds them a bit off it, so the
+      whole row is "flying" rather than screwed straight to the surface. That gap makes it much easier to get a
+      screwdriver in later to fasten the modules, and it keeps everything as far from any grounded surface as
+      reasonably possible.
+    </p>
+    <p>
+      Each separator is anchored with screws driven into the wood behind it, and a second screw then goes into the
+      first from the inside, which makes the whole assembly very firm and clean. Getting this right meant every hole had to
+      line up: the screws in the wall and the holes in the busbar all had to be aligned with each other.
+    </p>
+    <p>
+      As you can see in some of the pictures, I initially thought I needed more support points, but I didn't end up using them.
+      You can see them in the first and last photos in this section.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "busbar_hole_holder.jpg", caption: "The busbar's mounting holes, drilled to match the cell terminal spacing." },
+        { file: "busbar_bottom_holder.jpg", caption: "The 3D-printed clip that holds a busbar in place along the bottom row." },
+        { file: "copper_support.jpg", caption: "A copper busbar and its 3D-printed support." },
+        { file: "front_view_3D_support_installed.jpg", caption: "The support installed in the frame, seen from the front." },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <h2 id="safety">Safety</h2>
+    <p>
+      Safety is split across two layers here: passive protections that don't need anything actively watching them,
+      and an active system that continuously supervises the whole pack.
+    </p>
+    <p>
+      On the passive side, every module has its own fuse on its positive lead (shown earlier, in the cell modules
+      section), so a fault in one group of four cells can't take down its neighbors. There's also a single main fuse
+      protecting the battery as a whole.
+    </p>
+    <p>
+      The active protection layer is managed by the Battery Management System (BMS).
+      The unit continuously monitors cell health to enforce safe operational limits, preventing over-voltage during charging and under-voltage during discharge based on custom cutoff setpoints configured via the Bluetooth companion app.
+    </p>
+    <p>
+      A quick note on the companion app screenshot below: focus on the essentials rather than every single parameter. A few secondary telemetry fields were left at default values because they weren't required for this setup, so don't get bogged down by the unconfigured metrics.
+    </p>
+    <p>
+      What really matters is the row of individual series voltages. Notice how tightly matched they are across the board, with only millivolts of delta between them.
+      The BMS actively balances the pack, redistributing or trimming charge across adjacent groups to prevent weak links from drifting out of alignment and degrading total usable capacity.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "fuse.jpg", caption: "The main fuse protecting the battery as a whole." },
+        { file: "thermal_protector.jpg", caption: "A thermal protector fitted to cut power if a module overheats." },
+        { file: "bms.jpg", caption: "The BMS board, the active layer that supervises and balances all 15 series groups." },
+        {
+          file: "bms_app.jpeg",
+          caption:
+            "The BMS's companion app. Some fields weren't configured since I didn't need them, but the row of series voltages is real, sitting close together thanks to active balancing.",
+        },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <h2 id="electronics-monitoring">Monitoring</h2>
+    <p>
+      I wanted a way to visually see the current state of the battery at any time, so a clean idea was to put a
+      display on each column reporting its voltage. In reality that's purely a visual aspect, it doesn't feed into
+      anything, but it turned out very clean. The part actually in charge of monitoring everything, the MultiPlus and
+      the house's current consumption, is the Cerbo GX: the main brain of this project.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "individual_display_view.jpg", caption: "One of the per-group voltage displays mounted on the front panel." },
+        { file: "cerbo_cables_without_cover.jpg", caption: "The Cerbo GX wiring before the cover was fitted." },
+        { file: "cerbo_cables_with_cover.jpg", caption: "The same wiring, tidied up under its cover." },
+        { file: "voltage_displays.jpg", caption: "The row of voltage displays, one for each series group." },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <h2 id="grid-connection">Grid connection</h2>
+    <p>
+      The system runs in parallel with the grid rather than as a switch-over backup. My Victron MultiPlus is rated
+      for 5 kW, while the solar installation's own grid-tie inverter puts out up to 6 kW, so the MultiPlus can't be
+      wired as a full bypass without capping what the panels are able to deliver. One consequence of that is that
+      when the grid goes down, the battery system goes down with it, even though the panels would otherwise keep
+      producing. It's possible to rewire the cables so the MultiPlus powers the house directly off-grid, but the
+      parallel setup was the fastest and easiest way to get the system running, and that's the trade-off I chose for
+      now.
+    </p>
+    <p>
+      I'm also aware this isn't the most efficient way to do it: the battery stores and releases energy as DC, so
+      running it through the MultiPlus means a DC-to-AC conversion (and back, when charging) that wastes a percentage
+      of energy that a more direct setup could avoid. But that's what I had, and it was the simplest option available
+      at the time. MultiPlus units were quite expensive back then, and this is what the budget allowed. Even so, as
+      you'll see in the next section, it works properly anyway.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        { file: "multiplus.jpg", caption: "The Victron MultiPlus, the inverter/charger that ties the battery into the house wiring." },
+        { file: "multiplus_cables_without_cover.jpg", caption: "Its input and output wiring before the cover was fitted." },
+        { file: "multiplus_cables_with_cover.jpg", caption: "The same wiring, tidied up and covered." },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <h2 id="usage-statistics">Usage & consumption statistics</h2>
+    <p>
+      Once the system was running, I started pulling graphs from the Victron VRM dashboard to see how it actually
+      behaves day to day. The main thing to look at is the orange line: the battery's voltage, read off the left
+      axis, which is what tells you the state of the battery. The red line is the house's consumption, in watts,
+      read off the right axis.
+    </p>
+    <p>
+      A summer day looks like the graph below. House consumption sits around 50 W for most of the day, and once the
+      battery is full while the panels are still producing more than the house needs, that surplus is sent to the
+      grid instead. That's why the red line goes negative there: negative just means the power is flowing the other
+      way, out to the grid rather than in from it.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        {
+          file: "summer_day_consumption.png",
+          caption: "A clear summer day: the battery tops up, house consumption stays low, and the surplus solar is exported to the grid.",
+        },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <p>
+      That's how a good, sunny summer day looks, but in reality the average day looks closer to the one below, with
+      some clouds passing through. The battery still carries the house through the evening, but once it runs out
+      around midnight, consumption switches back to the grid.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        {
+          file: "not_so_perfect_day_consumption.png",
+          caption: "A more average day with some cloud cover: the battery empties around midnight and the house goes back to drawing from the grid.",
+        },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <p>
+      A much more interesting scenario is a day when the EV is plugged in all day.
+      As the telemetry shows, we rely on the grid or pack until the solar array ramps up.
+      Midday sun covers the vehicle’s draw and even routes surplus power back into the home storage pack.
+      That surplus window is short-lived, though as soon as solar generation dips, the car immediately pulls 
+      hard from the home battery again. Considering the EV carries an 80 kWh pack of its own, it dwarfs the home 
+      setup and can drain our reserves in no time.
+    </p>
+  </div>
+  <section class="photos">
+    <Gallery
+      folder={folder}
+      items={[
+        {
+          file: "charging_car_during_all_day_consumption.png",
+          caption: "Charging the electric car for a full day: solar covers it once the sun is up, but an 80 kWh car battery empties the house pack quickly.",
+        },
+      ]}
+    />
+  </section>
+
+  <div class="prose">
+    <p>
+      If there's one thing this project has made clear, it's that the next step should be adding more solar panels
+      before adding more cells. You can store as much energy as you want, but it doesn't matter if you're not
+      producing enough to fill it in the first place.
+    </p>
+  </div>
+
+  <Lightbox />
 </Base>
