@@ -1,7 +1,7 @@
 ---
 title: CAVE Simulation
 summary: Immersive virtual reality simulation for a CAVE environment.
-order: 5
+order: 7
 ---
 
 A browser-based simulation of a CAVE (Cave Automatic Virtual Environment). The simulation computes, for a given head/eye position, the correct off-axis (asymmetric) perspective projection needed to render the 3D scene onto each wall so it looks geometrically consistent from that viewpoint (same principle real CAVE systems use).
