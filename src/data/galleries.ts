@@ -34,4 +34,27 @@ export const galleries: Record<string, GalleryDef> = {
       { file: "voltage_displays.jpg", caption: "Each display shows the voltage of its series group." },
     ],
   },
+  "vespa-overview": {
+    folder: "vespa/overview",
+    hero: {
+      file: "old_vespa_state.jpg",
+      caption: "The Vespa as it arrived: fifty years old, dented, and not running.",
+    },
+    items: [
+      { file: "disassembled_vespa.jpg", caption: "Everything came apart down to the last screw before anything else could happen." },
+      { file: "cousin_cutting_metal.jpg", caption: "My cousin, an industrial engineer, helping out with the new metal structure." },
+      { file: "chasis_before_primer.jpg", caption: "The chassis stripped back to bare metal after the rust and dents were dealt with." },
+      { file: "chasis_after_primer.jpg", caption: "Primed and ready for paint." },
+      { file: "first_time_two_new_wheels.jpg", caption: "Rolling on its own wheels for the first time." },
+      { file: "electric_kit.jpg", caption: "The electric conversion kit, unpacked and labelled: hub motor, display, caliper and wiring." },
+      { file: "soldering_swing_arm_prototype.jpg", caption: "Welding a custom bracket to mount the electric hub motor." },
+      { file: "touching_up_chasis.jpg", caption: "Fitting and wiring the hub motor into the front fork." },
+      { file: "taking_mesures.jpg", caption: "Test-fitting the motor and wheel into the primed fender." },
+      { file: "cell.jpg", caption: "The battery is built from the same kind of cells as the home battery, one checked at a time." },
+      { file: "preped_cells.jpeg", caption: "Dozens of cells, ready to be grouped into packs." },
+      { file: "battery_packs_skeleton.jpg", caption: "The cells grouped into their plastic holders, before wrapping and wiring." },
+      { file: "battery_packs_completed.jpg", caption: "The finished battery packs, wrapped and labelled." },
+      { file: "checking_battery_pack_placement.jpg", caption: "Checking how the packs fit inside the body." },
+    ],
+  },
 };
