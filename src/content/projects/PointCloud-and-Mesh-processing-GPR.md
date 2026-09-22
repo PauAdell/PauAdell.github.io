@@ -1,7 +1,7 @@
 ---
 title: Point Cloud & Mesh Processing
 summary: "Six geometry processing labs: normal estimation, ICP, surface reconstruction, curvatures, smoothing and parameterization."
-order: 5
+order: 3
 ---
 
 Lab projects for the **Geometry Processing** course (MIRI, UPC). Each lab is a small C++ / OpenGL application (GLFW + ImGui + Eigen + nanoflann) that loads a PLY file and lets you play with the algorithm through an on-screen options panel.
