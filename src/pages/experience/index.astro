@@ -1,0 +1,49 @@
+---
+import Base from "../../layouts/Base.astro";
+
+interface Frontmatter {
+  title: string;
+  company: string;
+  period: string;
+  order?: number;
+  detailed?: boolean;
+  summary: string;
+}
+
+const files = import.meta.glob<{ frontmatter: Frontmatter; Content: any }>("../../content/experience/*.md", {
+  eager: true,
+});
+
+const roles = Object.entries(files)
+  .map(([path, mod]) => ({ slug: path.split("/").pop()!.replace(/\.md$/, ""), ...mod }))
+  .sort((a, b) => (a.frontmatter.order ?? 99) - (b.frontmatter.order ?? 99));
+---
+
+<Base title="Experience" description="Pau Adell's professional experience.">
+  <h1>Professional experience</h1>
+  {
+    roles.map((r) => {
+      const { Content } = r;
+      return r.frontmatter.detailed ? (
+        <section class="role">
+          <h2>
+            {r.frontmatter.title} · {r.frontmatter.company}
+          </h2>
+          <p class="meta">{r.frontmatter.period}</p>
+          <p class="lead">{r.frontmatter.summary}</p>
+          <div class="prose">
+            <Content />
+          </div>
+        </section>
+      ) : (
+        <section class="role role-brief">
+          <h2>
+            {r.frontmatter.title} · {r.frontmatter.company}
+          </h2>
+          <p class="meta">{r.frontmatter.period}</p>
+          <p>{r.frontmatter.summary}</p>
+        </section>
+      );
+    })
+  }
+</Base>

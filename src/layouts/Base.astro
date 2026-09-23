@@ -25,6 +25,7 @@ const path = Astro.url.pathname;
     <div class="frame">
       <nav>
         <a href="/" aria-current={path === "/" ? "page" : undefined}>{site.name}</a>
+        <a href="/experience/" aria-current={path.startsWith("/experience") ? "page" : undefined}>Experience</a>
         <a href="/interests/" aria-current={path.startsWith("/interests") ? "page" : undefined}>Other interests</a>
       </nav>
       <slot />

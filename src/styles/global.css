@@ -142,6 +142,28 @@ nav a[aria-current="page"] {
   background: color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
+/* Role sections on the experience page. */
+.role {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.role:first-of-type {
+  margin-top: 2rem;
+}
+.role h2 {
+  margin-top: 0;
+}
+.role .meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: -0.5rem 0 1rem;
+}
+.role-brief p:not(.meta) {
+  color: var(--muted);
+  max-width: 34rem;
+}
+
 .back,
 .source {
   font-size: 0.9rem;

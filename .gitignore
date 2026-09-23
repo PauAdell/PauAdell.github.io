@@ -4,3 +4,7 @@ dist/
 
 # Personal documents (CV contains a phone number); never commit
 *.pdf
+
+# TFG/TFM source material (used to build a new page, not for commit)
+TFG_info/
+TFM_info/
