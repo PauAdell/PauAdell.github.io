@@ -23,7 +23,7 @@ const { Content, frontmatter } = Astro.props.entry;
 ---
 
 <Base title={frontmatter.title} description={frontmatter.summary}>
-  <p class="back"><a href="/">← All projects</a></p>
+  <p class="back"><a href="/projects/">← All projects</a></p>
   <h1>{frontmatter.title}</h1>
   <p class="lead">{frontmatter.summary}</p>
   <p class="source">

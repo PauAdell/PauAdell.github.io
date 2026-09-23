@@ -1,13 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import { site } from "../config";
-import { publications } from "../data/publications";
-
-interface Frontmatter {
-  title: string;
-  summary: string;
-  order?: number;
-}
 
 interface ExperienceFrontmatter {
   title: string;
@@ -16,12 +9,6 @@ interface ExperienceFrontmatter {
   summary: string;
   order?: number;
 }
-
-const files = import.meta.glob<{ frontmatter: Frontmatter }>("../content/projects/*.md", { eager: true });
-
-const projects = Object.entries(files)
-  .map(([path, mod]) => ({ repo: path.split("/").pop()!.replace(/\.md$/, ""), ...mod.frontmatter }))
-  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
 const experienceFiles = import.meta.glob<{ frontmatter: ExperienceFrontmatter }>("../content/experience/*.md", {
   eager: true,
@@ -43,30 +30,7 @@ const currentRole = Object.values(experienceFiles)
   </p>
   <p><a href="/experience/">More on my experience &rarr;</a></p>
 
-  <div class="about">{site.about.slice(-1).map((text) => <p>{text}</p>)}</div>
-
   <h2>Software projects</h2>
-  <ul class="list">
-    {
-      projects.map((p) => (
-        <li>
-          <a href={`/projects/${p.repo}/`}>{p.title}</a>
-          <p>{p.summary}</p>
-        </li>
-      ))
-    }
-  </ul>
-
-  <h2>Theses &amp; publications</h2>
-  <ul class="list">
-    {
-      publications.map((p) => (
-        <li>
-          {p.url ? <a href={p.url}>{p.title}</a> : <span class="title">{p.title}</span>}
-          <p class="meta">{p.meta}</p>
-          <p>{p.summary}</p>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="about">{site.about.slice(-1).map((text) => <p>{text}</p>)}</div>
+  <p><a href="/projects/">More on my software projects &rarr;</a></p>
 </Base>

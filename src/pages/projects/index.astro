@@ -1,0 +1,33 @@
+---
+import Base from "../../layouts/Base.astro";
+import { site } from "../../config";
+
+interface Frontmatter {
+  title: string;
+  summary: string;
+  order?: number;
+}
+
+const files = import.meta.glob<{ frontmatter: Frontmatter }>("../../content/projects/*.md", { eager: true });
+
+const projects = Object.entries(files)
+  .map(([path, mod]) => ({ repo: path.split("/").pop()!.replace(/\.md$/, ""), ...mod.frontmatter }))
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+---
+
+<Base title="Software projects" description="Personal and academic software projects, with source code on GitHub.">
+  <h1>Software projects</h1>
+  <p class="lead">
+    Full source code for each project is on my <a href={`https://github.com/${site.githubUser}`}>GitHub</a>.
+  </p>
+  <ul class="list">
+    {
+      projects.map((p) => (
+        <li>
+          <a href={`/projects/${p.repo}/`}>{p.title}</a>
+          <p>{p.summary}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
