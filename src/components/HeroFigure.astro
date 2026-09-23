@@ -1,0 +1,31 @@
+---
+import { Image, getImage } from "astro:assets";
+import type { GalleryDef } from "../data/galleries";
+import { resolveImage } from "../data/images";
+
+interface Props {
+  gallery: GalleryDef;
+}
+
+const { gallery } = Astro.props;
+const heroSrc = resolveImage(gallery.folder, gallery.hero.file);
+const heroFull = await getImage({ src: heroSrc, width: 2400, format: "webp" });
+---
+
+<figure class="hero" data-lightbox>
+  <a
+    href={heroFull.src}
+    data-pswp-width={heroFull.attributes.width}
+    data-pswp-height={heroFull.attributes.height}
+    data-caption={gallery.hero.caption}
+  >
+    <Image
+      src={heroSrc}
+      alt={gallery.hero.caption}
+      widths={[800, 1200, 1600]}
+      sizes="(max-width: 46rem) 100vw, 46rem"
+      loading="eager"
+    />
+  </a>
+  <figcaption>{gallery.hero.caption}</figcaption>
+</figure>

@@ -57,4 +57,13 @@ export const galleries: Record<string, GalleryDef> = {
       { file: "checking_battery_pack_placement.jpg", caption: "Checking how the packs fit inside the body." },
     ],
   },
+  "board-games": {
+    folder: "board-games",
+    hero: {
+      file: "game-night.jpeg",
+      caption:
+        "A table covered in board games ready for 3/4 days, including Brass, Arnak, Terraforming Mars, and Nemesis. Can you find one you've actually played? 🤔",
+    },
+    items: [],
+  },
 };

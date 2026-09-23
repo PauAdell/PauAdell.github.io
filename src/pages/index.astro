@@ -9,17 +9,41 @@ interface Frontmatter {
   order?: number;
 }
 
+interface ExperienceFrontmatter {
+  title: string;
+  company: string;
+  period: string;
+  summary: string;
+  order?: number;
+}
+
 const files = import.meta.glob<{ frontmatter: Frontmatter }>("../content/projects/*.md", { eager: true });
 
 const projects = Object.entries(files)
   .map(([path, mod]) => ({ repo: path.split("/").pop()!.replace(/\.md$/, ""), ...mod.frontmatter }))
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+
+const experienceFiles = import.meta.glob<{ frontmatter: ExperienceFrontmatter }>("../content/experience/*.md", {
+  eager: true,
+});
+
+const currentRole = Object.values(experienceFiles)
+  .map((mod) => mod.frontmatter)
+  .sort((a, b) => (a.order ?? 99) - (b.order ?? 99))[0];
 ---
 
 <Base>
   <h1>{site.tagline}</h1>
   <p class="lead">{site.intro}</p>
-  <div class="about">{site.about.map((text) => <p>{text}</p>)}</div>
+  <div class="about">{site.about.slice(0, -1).map((text) => <p>{text}</p>)}</div>
+
+  <h2>Experience</h2>
+  <p>
+    {currentRole.title} at {currentRole.company} ({currentRole.period}). {currentRole.summary}
+  </p>
+  <p><a href="/experience/">More on my experience &rarr;</a></p>
+
+  <div class="about">{site.about.slice(-1).map((text) => <p>{text}</p>)}</div>
 
   <h2>Software projects</h2>
   <ul class="list">
