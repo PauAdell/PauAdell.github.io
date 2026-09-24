@@ -37,6 +37,10 @@ Around that, I designed an Airbus A380 glass-cockpit simulation featuring high-r
 
 That's the whole pipeline running in sync: the SC-compliant widget library on the left, driving the cockpit instruments inside the Unity/Cesium scene on the right, in real time.
 
+<video controls muted playsinline preload="metadata" poster="/experience/vr-cockpit-demo-poster.jpg" style="max-width: 40rem; width: 100%; border-radius: 0.5rem;">
+  <source src="/experience/vr-cockpit-demo.mp4" type="video/mp4" />
+</video>
+
 ### Performance benchmarking
 
 Using Unity's internal profiler alongside native instrumentation in the widget library, I profiled both sides of the bridge to isolate architectural bottlenecks and maximize throughput. The methodology and benchmark results are documented in my Master's thesis, which hasn't been published yet.
