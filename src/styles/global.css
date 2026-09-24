@@ -81,9 +81,15 @@ h3 {
 nav {
   display: flex;
   gap: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
 }
 nav a {
   color: var(--muted);
@@ -171,12 +177,19 @@ nav a[aria-current="page"] {
 }
 
 footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
   width: min(46rem, 100% - 2rem);
   margin: 0 auto;
-  padding: 1.5rem 0 2.5rem 2.5rem;
+  padding: 0.6rem 0 0.6rem 2.5rem;
+  background: var(--bg);
   border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 /* Rendered Markdown (READMEs and interest pages). */

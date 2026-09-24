@@ -22,7 +22,7 @@ The project starts from an existing open-source C library, originally written fo
 
 Those offscreen pixels reach Unity through POSIX shared memory, simplified down it looks like this:
 
-<img src="/experience/opengl-unity-texture-share.png" alt="Diagram: the OpenGL program writes a rendered texture into shared memory, and Unity reads it from there." />
+<img src="/experience/opengl-unity-texture-share.png" alt="Diagram: the OpenGL program writes a rendered texture into shared memory, and Unity reads it from there." style="max-width: 420px; margin: 0 auto; display: block;" />
 
 
 The C library outputs each rendered widget into a shared memory segment that a Unity C# script reads frame-by-frame into a `Texture2D`. In parallel, operational telemetry flows upstream via a dedicated shared-memory segment using a `FlightDataPacket` structure (mapped to platform-specific paths on Windows or Linux) to keep widget states synchronized. This decoupled architecture leaves the safety-critical C codebase fully isolated and reusable without redundant porting or logic duplication while remaining directly usable by our high-end simulation.
