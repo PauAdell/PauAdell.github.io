@@ -90,6 +90,7 @@ nav {
   background: var(--bg);
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--line);
+  transform: translateZ(0);
 }
 nav a {
   color: var(--muted);
@@ -187,6 +188,7 @@ footer {
   padding: 0.6rem 0 0.6rem 2.5rem;
   background: var(--bg);
   border-left: 1px solid var(--line);
+  transform: translateZ(0);
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.8rem;
