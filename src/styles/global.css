@@ -185,13 +185,14 @@ footer {
   z-index: 20;
   width: min(46rem, 100% - 2rem);
   margin: 0 auto;
-  padding: 0.6rem 0 0.6rem 2.5rem;
+  padding: 0.6rem 0;
   background: var(--bg);
   border-left: 1px solid var(--line);
   transform: translateZ(0);
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.8rem;
+  text-align: center;
 }
 
 /* Rendered Markdown (READMEs and interest pages). */
